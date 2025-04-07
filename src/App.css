@@ -1,0 +1,635 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.drop-zone {
+  min-height: 100vh;
+  position: relative;
+}
+
+.drop-zone.dragging::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(100, 108, 255, 0.1);
+  border: 3px dashed #646cff;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.layout-buttons, .size-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.layout-button, .size-button {
+  padding: 8px 16px;
+  border: 1px solid #646cff;
+  background: transparent;
+  color: #646cff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.layout-button:hover, .size-button:hover {
+  background: rgba(100, 108, 255, 0.1);
+}
+
+.layout-button.active, .size-button.active {
+  background: #646cff;
+  color: white;
+}
+
+.size-button {
+  border-color: #42b883;
+  color: #42b883;
+}
+
+.size-button:hover {
+  background: rgba(66, 184, 131, 0.1);
+}
+
+.size-button.active {
+  background: #42b883;
+  color: white;
+}
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+}
+
+.upload-button, .view-gallery-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #646cff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  font-size: 1rem;
+}
+
+.upload-button:hover, .view-gallery-button:hover {
+  background-color: #535bf2;
+}
+
+.upload-button.disabled {
+  background-color: #a5a5a5;
+  cursor: not-allowed;
+}
+
+.view-gallery-button {
+  margin-top: 1rem;
+  background-color: #42b883;
+}
+
+.view-gallery-button:hover {
+  background-color: #3aa876;
+}
+
+.drag-tip {
+  margin-top: 1rem;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+}
+
+.empty-state p {
+  margin-bottom: 1rem;
+}
+
+.photo-count {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* 瀑布流布局 */
+.photo-grid.masonry-layout {
+  display: flex;
+  margin-left: -24px;
+  width: auto;
+  padding: 24px;
+}
+
+.masonry-column {
+  padding-left: 24px;
+  background-clip: padding-box;
+}
+
+.photo-grid.masonry-layout .photo-item {
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  width: 100%;
+  break-inside: avoid;
+}
+
+.photo-wrapper {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
+}
+
+.photo-wrapper:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.photo-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.photo-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.photo-wrapper:hover .photo-info {
+  opacity: 1;
+}
+
+.photo-name {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.photo-date {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* 网格布局 */
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.grid-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.grid-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 列表布局 */
+.list-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.list-item:hover {
+  transform: translateX(8px);
+}
+
+.list-photo {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+/* 通用照片样式 */
+.photo-item {
+  position: relative;
+  margin-bottom: 16px;
+  break-inside: avoid;
+  transition: all 0.3s ease;
+}
+
+.photo-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.photo-wrapper.hovered {
+  transform: scale(1.02);
+}
+
+.photo {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.photo-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.photo-wrapper:hover .photo-info {
+  opacity: 1;
+}
+
+.photo-name {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.photo-date {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* 动画效果 */
+.photo-item {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 图片预览 */
+.image-preview-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.image-preview-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview-image-container {
+  position: relative;
+  max-width: 90%;
+  max-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  animation: zoomIn 0.3s ease-out;
+}
+
+.preview-close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+  z-index: 1010;
+}
+
+.preview-close-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.preview-nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 80px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+  z-index: 1010;
+}
+
+.preview-nav-button.prev {
+  left: 20px;
+  border-radius: 0 40px 40px 0;
+}
+
+.preview-nav-button.next {
+  right: 20px;
+  border-radius: 40px 0 0 40px;
+}
+
+.preview-nav-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  width: 60px;
+}
+
+.preview-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  text-align: center;
+}
+
+.preview-title {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.preview-date {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+
+.preview-counter {
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 加载更多 */
+.load-more {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 14px;
+  opacity: 0.8;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.load-more::after {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border: 2px solid #646cff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  margin-left: 8px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Toast 样式 */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 200px;
+  padding: 16px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+  display: flex;
+  align-items: center;
+}
+
+.toast-container.success {
+  border-left: 4px solid #42b883;
+}
+
+.toast-container.error {
+  border-left: 4px solid #ff4757;
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toast-icon {
+  font-size: 18px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.success .toast-icon {
+  color: #42b883;
+  background: rgba(66, 184, 131, 0.1);
+}
+
+.error .toast-icon {
+  color: #ff4757;
+  background: rgba(255, 71, 87, 0.1);
+}
+
+.toast-message {
+  color: #333;
+  font-size: 14px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 拖拽样式 */
+.photo-item.dragging {
+  cursor: grabbing;
+  opacity: 0.8;
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
+  z-index: 1000;
+}
+
+.photo-item:not(.dragging) {
+  transition: transform 0.2s ease-in-out;
+}
+
+.photo-item:hover {
+  cursor: grab;
+}
+
+.photo-item:active {
+  cursor: grabbing;
+}
