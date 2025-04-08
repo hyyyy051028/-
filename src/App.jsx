@@ -1,17 +1,29 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Upload from './pages/Upload'
-import Gallery from './pages/Gallery'
-import './App.css'
+import React from 'react';
+import Carousel from './components/Carousel';
+import './App.css';
+
+const images = [
+  {
+    url: 'https://picsum.photos/800/400?random=1',
+    alt: '风景图片 1',
+  },
+  {
+    url: 'https://picsum.photos/800/400?random=2',
+    alt: '风景图片 2',
+  },
+  {
+    url: 'https://picsum.photos/800/400?random=3',
+    alt: '风景图片 3',
+  },
+];
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Upload />} />
-        <Route path="/gallery" element={<Gallery />} />
-      </Routes>
-    </Router>
-  )
+    <div className="app">
+      <h1>轮播图演示</h1>
+      <Carousel images={images} />
+    </div>
+  );
 }
 
-export default App
+export default App;
