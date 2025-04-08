@@ -1,0 +1,35 @@
+[build]
+  base = "/"
+  publish = "dist"
+  command = "npm ci --legacy-peer-deps && npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+  CI = "true"
+  NODE_ENV = "production"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Content-Type = "text/javascript"
+
+[[headers]]
+  for = "/*.mjs"
+  [headers.values]
+    Content-Type = "text/javascript"
+
+[[headers]]
+  for = "/*.jsx"
+  [headers.values]
+    Content-Type = "text/javascript"
+
+[[headers]]
+  for = "/*.ts"
+  [headers.values]
+    Content-Type = "text/javascript"
+
+[[headers]]
+  for = "/*.tsx"
+  [headers.values]
+    Content-Type = "text/javascript" 

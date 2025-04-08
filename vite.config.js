@@ -9,5 +9,16 @@ export default defineConfig({
     sourcemap: false,
     minify: 'terser',
     chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+        format: 'es',
+      },
+    },
+  },
+  server: {
+    headers: {
+      'Content-Type': 'text/javascript',
+    },
   },
 });
