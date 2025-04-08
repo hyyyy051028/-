@@ -1,7 +1,7 @@
 [build]
   base = "/"
   publish = "dist"
-  command = "npm install && mkdir -p dist && npx vite build"
+  command = "npm install && npm install vite@5.0.12 && mkdir -p dist && npm run build"
 
 [build.environment]
   NODE_VERSION = "18"
