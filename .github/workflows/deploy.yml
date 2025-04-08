@@ -16,7 +16,6 @@ concurrency:
 
 env:
   NODE_ENV: production
-  VITE_BASE_URL: /安康之旅/
 
 jobs:
   build:
@@ -34,12 +33,23 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
+          npm install -g vite
           npm list vite || npm install vite
 
       - name: Build
         run: |
           npm run build
           cp dist/index.html dist/404.html
+          # 确保所有资源都可访问
+          chmod -R 755 dist
+          # 添加正确的 MIME 类型配置
+          echo '{
+            "*.js": "application/javascript",
+            "*.jsx": "application/javascript",
+            "*.mjs": "application/javascript",
+            "*.ts": "application/javascript",
+            "*.tsx": "application/javascript"
+          }' > dist/_headers
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

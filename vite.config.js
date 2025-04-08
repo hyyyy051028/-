@@ -5,7 +5,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === 'production' ? '/安康之旅/' : '/',
+  base: './',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -13,15 +13,21 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: false,
+    sourcemap: true,
     minify: 'terser',
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+      },
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            return 'vendor';
-          }
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          ui: [
+            'react-beautiful-dnd',
+            'react-masonry-css',
+            'react-lazy-load-image-component',
+          ],
         },
         format: 'es',
         entryFileNames: 'assets/[name].[hash].js',
@@ -32,7 +38,11 @@ export default defineConfig({
   },
   server: {
     headers: {
-      'Content-Type': 'text/javascript',
+      'Content-Type': 'application/javascript',
+      'X-Content-Type-Options': 'nosniff',
     },
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom'],
   },
 });
