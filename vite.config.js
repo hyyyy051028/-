@@ -5,6 +5,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: process.env.NODE_ENV === 'production' ? '/安康之旅/' : '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -17,7 +18,11 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        },
         format: 'es',
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
@@ -30,5 +35,4 @@ export default defineConfig({
       'Content-Type': 'text/javascript',
     },
   },
-  base: './',
 });
