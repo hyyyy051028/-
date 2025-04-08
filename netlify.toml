@@ -1,7 +1,7 @@
 [build]
   base = "/"
   publish = "dist"
-  command = "chmod +x build.sh && ./build.sh"
+  command = "npm install && ./node_modules/.bin/vite build"
 
 [build.environment]
   NODE_VERSION = "18"
